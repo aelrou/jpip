@@ -26,8 +26,8 @@ public class LocalRunConfig {
             this.EMAIL_PORT = 465;
             this.EMAIL_USERNAME = "email@gmail.com";
             this.EMAIL_PASSWORD = "password";
-            this.EMAIL_SENDER = "email@gmail.com";
-            this.EMAIL_RECIPIENT_LIST = new ArrayList<>(Arrays.asList("email@gmail.com"));
+            this.EMAIL_SENDER = "My Unique Device Name <email@gmail.com>";
+            this.EMAIL_RECIPIENT_LIST = new ArrayList<>(Arrays.asList("email-1@gmail.com", "email-2@gmail.com"));
             this.EMAIL_TIMEOUT = 30000;
         }
     }
