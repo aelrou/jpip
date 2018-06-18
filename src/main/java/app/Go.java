@@ -30,7 +30,7 @@ public class Go {
             String googleResponse = new WrapHttpsConnect(localRunConfig.IPCHECK_HOST, localRunConfig.IPCHECK_RESOURCE).useSslSocket();
             String ipAddress = new GoogleResultsParser(googleResponse).getIp();
             if (ipAddress.equals(localStatusCache.IP_CACHE)) {
-                log.save("No change in current IP " + ipAddress);
+                log.save("No change in IP " + ipAddress);
             } else {
                 log.save("The current IP " + ipAddress + " is different from the cached IP " + localStatusCache.IP_CACHE);
                 try {
@@ -39,7 +39,7 @@ public class Go {
                     new WrapMail(localRunConfig, localRunConfig.DEVICE_NAME, messageLines).sendUsingSsl();
                 } catch (Exception e) {
                     e.printStackTrace();
-                    log.save("Failed to send update email");
+                    log.save("Failed to send email");
                 }
             }
             new WrapJson(workDir).updateLocalStatusCache(localStatusCacheFile, ipAddress);
@@ -55,7 +55,7 @@ public class Go {
         }
         LocalDateTime stopClock = LocalDateTime.now();
         Duration duration = Duration.between(startClock, stopClock);
-        log.save("Process time " + duration.getSeconds() + " sec");
+        System.out.print("Process time " + duration.getSeconds() + " sec");
     }
 }
 
