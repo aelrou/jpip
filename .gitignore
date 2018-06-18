@@ -3,5 +3,6 @@
 .idea/uiDesigner.xml
 .idea/libraries/*.xml
 target
+*.jar
 *.log
 *.json
