@@ -5,7 +5,8 @@ import java.util.Arrays;
 
 public class LocalRunConfig {
     public String DEVICE_NAME;
-    public String IPCHECK_URL;
+    public String IPCHECK_HOST;
+    public String IPCHECK_RESOURCE;
     public String LOGS_DIRECTORY;
     public String LOG_NAME;
 
@@ -22,7 +23,8 @@ public class LocalRunConfig {
             this.DEVICE_NAME = "My Unique Device Name";
             this.LOGS_DIRECTORY = "C:\\Users\\Public\\jpip";
             this.LOG_NAME = "jpip.log";
-            this.IPCHECK_URL = "https://www.google.com/search?q=what+is+my+ip";
+            this.IPCHECK_HOST = "www.google.com";
+            this.IPCHECK_RESOURCE = "/search?q=what+is+my+ip";
 
             this.EMAIL_SERVER = "smtp.gmail.com";
             this.EMAIL_PORT = 465;

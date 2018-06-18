@@ -1,12 +1,17 @@
 package app;
 
 import java.io.File;
+import java.io.IOException;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Go {
 
-    public static void main(String[] args) throws WorkDirException, WrapJsonException {
+    public static void main(String[] args) throws WorkDirException, WrapJsonException, WrapHttpsConnectException, GoogleResultsParserException, NoSuchAlgorithmException, KeyManagementException, IOException {
 
         String workDir = new WorkDir(args, "app.jar").dir();
 
@@ -19,7 +24,14 @@ public class Go {
         LocalStatusCache localStatusCache = new WrapJson(workDir).readLocalStatusCache(localStatusCacheFile);
 
         LocalDateTime startClock = LocalDateTime.now();
-//        String currentIp = "";
+
+        String googleResponce = new WrapHttpsConnect(localRunConfig.IPCHECK_HOST, localRunConfig.IPCHECK_RESOURCE).useSslSocket();
+
+        String ipAddress = new GoogleResultsParser(googleResponce).getIp();
+
+        new WrapMail(localRunConfig, localRunConfig.DEVICE_NAME, new ArrayList<>(Arrays.asList("This is a test from "+ ipAddress))).sendUsingSsl();
+
+        //        String currentIp = "";
 //
 //        try {
 //

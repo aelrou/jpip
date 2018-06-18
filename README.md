@@ -9,7 +9,7 @@ Public IP address monitor and notify utility using Java on Windows
 * Build JAR with dependencies using [Maven](https://maven.apache.org/)  
   `M2_HOME - C:\Program Files\Maven`  
   `PATH - C:\Program Files\Maven\bin`  
-  `C:\wpip>mvn clean package`
+  `C:\jpip>mvn clean package`
 
 * Configure email variables in JSON config file  
   `"EMAIL_SENDER":"my@email.com"`

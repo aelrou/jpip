@@ -4,5 +4,4 @@
 .idea/libraries/*.xml
 target
 *.log
-*.jar
 *.json
