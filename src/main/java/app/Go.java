@@ -33,14 +33,9 @@ public class Go {
                 log.save("No change in IP " + ipAddress);
             } else {
                 log.save("The current IP " + ipAddress + " is different from the cached IP " + localStatusCache.IP_CACHE);
-                try {
-                    ArrayList<String> messageLines = new ArrayList<>();
-                    messageLines.add(ipAddress);
-                    new WrapMail(localRunConfig, localRunConfig.DEVICE_NAME, messageLines).sendUsingSsl();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    log.save("Failed to send email");
-                }
+                ArrayList<String> messageLines = new ArrayList<>();
+                messageLines.add(ipAddress);
+                new WrapMail(localRunConfig, localRunConfig.DEVICE_NAME, messageLines).sendUsingSsl();
             }
             new WrapJson(workDir).updateLocalStatusCache(localStatusCacheFile, ipAddress);
         } catch (WrapHttpsConnectException whce) {

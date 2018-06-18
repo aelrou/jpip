@@ -31,10 +31,10 @@ public class Log {
 
         if (file != null || file.exists()) {
             if (file.length() > (1024 * 1024)) {
-                String logAchive = logsDir + "\\" + logName+ "_" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) + "." + logExt;
-                File fileOld = new File(logAchive);
+                String logArchive = logsDir + "\\" + logName + "_" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) + "." + logExt;
+                File fileOld = new File(logArchive);
                 file.renameTo(fileOld);
-                System.out.println("Archived LOG \"" + logAchive + "\"");
+                System.out.println("Archived LOG \"" + logArchive + "\"");
                 create();
             } else {
                 System.out.println("Found LOG \"" + logFile + "\"");
