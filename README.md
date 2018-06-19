@@ -12,15 +12,15 @@ Public IP address monitor and notify utility using Java on Windows
   `C:\jpip>mvn clean package`
 
 * Configure email variables in JSON config file  
-  `{ "DEVICE_NAME": "My Unique Device Name",`
-  `"IPCHECK_HOST": "www.google.com",`
-  `"IPCHECK_RESOURCE": "/search?q=what+is+my+ip",`
-  `"EMAIL_SERVER": "smtp.gmail.com",`
-  `"EMAIL_PORT": 465,`
-  `"EMAIL_USERNAME": "address@gmail.com",`
-  `"EMAIL_PASSWORD": "password",`
-  `"EMAIL_SENDER": "My Unique Device Name <address@gmail.com>",`
-  `"EMAIL_RECIPIENT_LIST": [ "address@gmail.com" ],`
+  `{ "DEVICE_NAME": "My Unique Device Name",`  
+  `"IPCHECK_HOST": "www.google.com",`  
+  `"IPCHECK_RESOURCE": "/search?q=what+is+my+ip",`  
+  `"EMAIL_SERVER": "smtp.gmail.com",`  
+  `"EMAIL_PORT": 465,`  
+  `"EMAIL_USERNAME": "address@gmail.com",`  
+  `"EMAIL_PASSWORD": "password",`  
+  `"EMAIL_SENDER": "My Unique Device Name <address@gmail.com>",`  
+  `"EMAIL_RECIPIENT_LIST": [ "address-1@gmail.com", "address-2@gmail.com" ],`  
   `"EMAIL_TIMEOUT": 30000 }`
 
 * Configure IP check frequency using Windows Task Scheduler  
