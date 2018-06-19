@@ -83,6 +83,7 @@ public class WrapMail {
                 transport = session.getTransport("smtp");
             }
             transport.connect(server, port, username, password);
+            message.saveChanges();
             transport.sendMessage(message, message.getAllRecipients());
             transport.close();
         } catch (MessagingException e) {
