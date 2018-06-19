@@ -13,10 +13,11 @@ Public IP address monitor and notify utility using Java on Windows
 
 * Configure email variables in JSON config file  
   `"EMAIL_SERVER": "smtp.server.com",`  
-  `"EMAIL_PORT": 465,`  
+  `"EMAIL_PROTOCIL": "SSL",` TLS or SSL  
+  `"EMAIL_PORT": 465,` 25, 465, 587  
   `"EMAIL_USERNAME": "sender@address.com",`  
   `"EMAIL_PASSWORD": "password",`  
-  `"EMAIL_SENDER": "My Unique Device Name <sender@address.com>",`  
+  `"EMAIL_SENDER": "My Unique Device Name < sender@address.com >",`  
   `"EMAIL_RECIPIENT_LIST": [ "recipient-1@address.com", "recipient-2@address.com" ],`  
 
 * Configure IP check frequency using Windows Task Scheduler  
