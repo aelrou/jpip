@@ -13,8 +13,8 @@ Public IP address monitor and notify utility using Java on Windows
 
 * Configure email variables in JSON config file  
   `"EMAIL_SERVER": "smtp.server.com",`  
-  `"EMAIL_PROTOCIL": "SSL",` TLS or SSL  
-  `"EMAIL_PORT": 465,` 25, 465, 587  
+  `"EMAIL_PROTICOL": "SSL",` _or TLS_  
+  `"EMAIL_PORT": 465,` _common TLS ports: 25, 587_  
   `"EMAIL_USERNAME": "sender@address.com",`  
   `"EMAIL_PASSWORD": "password",`  
   `"EMAIL_SENDER": "My Unique Device Name < sender@address.com >",`  
