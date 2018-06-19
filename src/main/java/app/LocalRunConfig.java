@@ -9,6 +9,7 @@ public class LocalRunConfig {
     public String IPCHECK_RESOURCE;
 
     public String EMAIL_SERVER;
+    public String EMAIL_PROTOCOL;
     public int EMAIL_PORT;
     public String EMAIL_USERNAME;
     public String EMAIL_PASSWORD;
@@ -23,6 +24,7 @@ public class LocalRunConfig {
             this.IPCHECK_RESOURCE = "/search?q=what+is+my+ip";
 
             this.EMAIL_SERVER = "smtp.server.com";
+            this.EMAIL_PROTOCOL = "SSL";
             this.EMAIL_PORT = 465;
             this.EMAIL_USERNAME = "sender@address.com";
             this.EMAIL_PASSWORD = "password";

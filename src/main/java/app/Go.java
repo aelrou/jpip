@@ -14,7 +14,6 @@ public class Go {
         File localRunConfigFile = new WrapJson(workDir).findLocalRunConfig("LocalRunConfig.json");
         LocalRunConfig localRunConfig = new WrapJson(workDir).readLocalRunConfig(localRunConfigFile);
 
-
         File localLogConfigFile = new WrapJson(workDir).findLocalLogConfig("LocalLogConfig.json");
         LocalLogConfig localLogConfig = new WrapJson(workDir).readLocalLogConfig(localLogConfigFile);
 
@@ -35,7 +34,7 @@ public class Go {
                 log.save("The current IP " + ipAddress + " is different from the cached IP " + localStatusCache.IP_CACHE);
                 ArrayList<String> messageLines = new ArrayList<>();
                 messageLines.add(ipAddress);
-                new WrapMail(localRunConfig, localRunConfig.DEVICE_NAME, messageLines).sendUsingSsl();
+                new WrapMail(localRunConfig, localRunConfig.DEVICE_NAME, messageLines).sendSecure();
             }
             new WrapJson(workDir).updateLocalStatusCache(localStatusCacheFile, ipAddress);
         } catch (WrapHttpsConnectException whce) {
@@ -53,4 +52,3 @@ public class Go {
         System.out.print("Process time " + duration.getSeconds() + " sec");
     }
 }
-
