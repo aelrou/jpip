@@ -22,25 +22,23 @@ public class Log {
     }
 
     void find() {
-        File file = null;
         try {
-            file = new File(logFile).getCanonicalFile();
+            File file = new File(logFile).getCanonicalFile();
+            if (file != null || file.exists()) {
+                if (file.length() > (1024 * 1024)) {
+                    String logArchive = logsDir + "\\" + logName + "_" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) + "." + logExt;
+                    File fileOld = new File(logArchive);
+                    file.renameTo(fileOld);
+                    System.out.println("Archived LOG \"" + logArchive + "\"");
+                    create();
+                } else {
+                    System.out.println("Found LOG \"" + logFile + "\"");
+                }
+            } else {
+                create();
+            }
         } catch (IOException e) {
             e.printStackTrace();
-        }
-
-        if (file != null || file.exists()) {
-            if (file.length() > (1024 * 1024)) {
-                String logArchive = logsDir + "\\" + logName + "_" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) + "." + logExt;
-                File fileOld = new File(logArchive);
-                file.renameTo(fileOld);
-                System.out.println("Archived LOG \"" + logArchive + "\"");
-                create();
-            } else {
-                System.out.println("Found LOG \"" + logFile + "\"");
-            }
-        } else {
-            create();
         }
     }
 
