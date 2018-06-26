@@ -1,5 +1,8 @@
 package app;
 
+import app.model.JsonCacheModel;
+import app.model.JsonLogModel;
+import app.model.JsonRunModel;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -7,13 +10,8 @@ import java.io.*;
 import java.time.LocalDateTime;
 
 public class WrapJson {
-    private String workDir;
 
-    public WrapJson(String workDir) {
-        this.workDir = workDir;
-    }
-
-    File findLocalRunConfig(String fileName) throws WrapJsonException {
+    static File findLocalRunConfig(String workDir, String fileName) throws WrapJsonException {
         File file = new File(workDir + "\\" + fileName);
         String filePath = file.getAbsolutePath();
         if (file.exists()) {
@@ -25,18 +23,18 @@ public class WrapJson {
             }
         } else {
             System.out.println("Cannot find: \"" + filePath + "\"");
-            new WrapJson(workDir).createLocalRunConfig(file);
+            createLocalRunConfig(file);
             return file;
         }
     }
 
-    LocalRunConfig readLocalRunConfig(File file) {
-        LocalRunConfig localRunConfig = null;
+    static JsonRunModel readLocalRunConfig(File file) {
+        JsonRunModel localRunConfig = null;
         try {
             FileInputStream input = new FileInputStream(file);
             Reader reader = new InputStreamReader(input, "US-ASCII");
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            localRunConfig = gson.fromJson(reader, LocalRunConfig.class);
+            localRunConfig = gson.fromJson(reader, JsonRunModel.class);
             reader.close();
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
@@ -51,13 +49,13 @@ public class WrapJson {
         return localRunConfig;
     }
 
-    private void createLocalRunConfig(File file) {
+    private static void createLocalRunConfig(File file) {
         try {
             System.out.println("Creating...");
             FileWriter writer = new FileWriter(file, false);
             BufferedWriter buffer = new BufferedWriter(writer);
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            gson.toJson(new LocalRunConfig(true), buffer);
+            gson.toJson(new JsonRunModel(true), buffer);
             buffer.flush();
             buffer.close();
             System.out.println("Please examine \"" + file + "\" and update the configuration as needed");
@@ -66,7 +64,7 @@ public class WrapJson {
         }
     }
 
-    File findLocalLogConfig(String fileName) throws WrapJsonException {
+    static File findLocalLogConfig(String workDir, String fileName) throws WrapJsonException {
         File file = new File(workDir + "\\" + fileName);
         String filePath = file.getAbsolutePath();
         if (file.exists()) {
@@ -78,18 +76,18 @@ public class WrapJson {
             }
         } else {
             System.out.println("Cannot find: \"" + filePath + "\"");
-            new WrapJson(workDir).createLocalLogConfig(file);
+            createLocalLogConfig(file);
             return file;
         }
     }
 
-    LocalLogConfig readLocalLogConfig(File file) {
-        LocalLogConfig localLogConfig = null;
+    static JsonLogModel readLocalLogConfig(File file) {
+        JsonLogModel localLogConfig = null;
         try {
             FileInputStream input = new FileInputStream(file);
             Reader reader = new InputStreamReader(input, "US-ASCII");
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            localLogConfig = gson.fromJson(reader, LocalLogConfig.class);
+            localLogConfig = gson.fromJson(reader, JsonLogModel.class);
             reader.close();
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
@@ -104,13 +102,13 @@ public class WrapJson {
         return localLogConfig;
     }
 
-    private void createLocalLogConfig(File file) {
+    private static void createLocalLogConfig(File file) {
         try {
             System.out.println("Creating...");
             FileWriter writer = new FileWriter(file, false);
             BufferedWriter buffer = new BufferedWriter(writer);
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            gson.toJson(new LocalLogConfig(true), buffer);
+            gson.toJson(new JsonLogModel(true), buffer);
             buffer.flush();
             buffer.close();
             System.out.println("Please examine \"" + file + "\" and update the configuration as needed");
@@ -119,7 +117,7 @@ public class WrapJson {
         }
     }
 
-    File findLocalStatusCache(String fileName) throws WrapJsonException {
+    static File findLocalStatusCache(String workDir, String fileName) throws WrapJsonException {
         File file = new File(workDir + "\\" + fileName);
         String filePath = file.getAbsolutePath();
         if (file.exists()) {
@@ -131,18 +129,18 @@ public class WrapJson {
             }
         } else {
             System.out.println("Cannot find: \"" + filePath + "\"");
-            new WrapJson(workDir).createLocalStatusCache(file);
+            createLocalStatusCache(file);
             return file;
         }
     }
 
-    LocalStatusCache readLocalStatusCache(File file) {
-        LocalStatusCache localStatusCache = null;
+    static JsonCacheModel readLocalStatusCache(File file) {
+        JsonCacheModel localStatusCache = null;
         try {
             FileInputStream input = new FileInputStream(file);
             Reader reader = new InputStreamReader(input, "US-ASCII");
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            localStatusCache = gson.fromJson(reader, LocalStatusCache.class);
+            localStatusCache = gson.fromJson(reader, JsonCacheModel.class);
             reader.close();
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
@@ -157,13 +155,13 @@ public class WrapJson {
         return localStatusCache;
     }
 
-    private void createLocalStatusCache(File file) {
+    private static void createLocalStatusCache(File file) {
         try {
             System.out.println("Creating...");
             FileWriter writer = new FileWriter(file, false);
             BufferedWriter buffer = new BufferedWriter(writer);
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            gson.toJson(new LocalStatusCache(true), buffer);
+            gson.toJson(new JsonCacheModel(true), buffer);
             buffer.flush();
             buffer.close();
         } catch (IOException e) {
@@ -171,13 +169,13 @@ public class WrapJson {
         }
     }
 
-    void updateLocalStatusCache(File file, String ipAddress) {
+    static void updateLocalStatusCache(File file, String ipAddress) {
         try {
             FileWriter writer = new FileWriter(file, false);
             BufferedWriter buffer = new BufferedWriter(writer);
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
-            LocalStatusCache updateStatusCache = new LocalStatusCache(false);
+            JsonCacheModel updateStatusCache = new JsonCacheModel(false);
             updateStatusCache.IP_CACHE = ipAddress;
             updateStatusCache.LAST_UPDATE = LocalDateTime.now();
 

@@ -3,13 +3,8 @@ package app;
 import java.io.File;
 
 public class WorkDir {
-    private String[] args;
-    private String jarName;
-    private String workDir;
 
-    public WorkDir(String[] args, String jarName) throws WorkDirException {
-        this.args = args;
-        this.jarName = jarName;
+    private static boolean check(String[] args, String jarName) throws WorkDirException {
 
         if (jarName == null || jarName.trim().isEmpty()) {
             throw new WorkDirException("Internal error. \"jarName\" is not set.");
@@ -21,17 +16,18 @@ public class WorkDir {
         if (args.length != 1) {
             throw new WorkDirException("Only 1 parameter allowed. Found " + args.length);
         }
-        this.workDir = args[0];
+        return true;
     }
 
-    String dir() throws WorkDirException {
-        new WorkDir(args, jarName).findJar();
-        return workDir;
+    public static String getDir(String[] args, String jarName) throws WorkDirException {
+        WorkDir.check(args, jarName);
+        WorkDir.getJar(args, jarName);
+        return args[0];
     }
 
-    File findJar() throws WorkDirException {
+    private static File getJar(String[] args, String jarName) throws WorkDirException {
 
-        File jarFile = new File(workDir + "\\" + jarName);
+        File jarFile = new File(args[0] + "\\" + jarName);
         String jarPath = jarFile.getAbsolutePath();
 
         if (jarFile.exists()) {

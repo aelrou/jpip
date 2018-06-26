@@ -1,5 +1,7 @@
 package app;
 
+import app.model.*;
+
 import java.io.File;
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -9,43 +11,44 @@ public class Go {
 
     public static void main(String[] args) throws WorkDirException, WrapJsonException {
 
-        String workDir = new WorkDir(args, "app.jar").dir();
+        String workDir = WorkDir.getDir(args, "app.jar");
 
-        File localRunConfigFile = new WrapJson(workDir).findLocalRunConfig("LocalRunConfig.json");
-        LocalRunConfig localRunConfig = new WrapJson(workDir).readLocalRunConfig(localRunConfigFile);
+        File localRunConfigFile = WrapJson.findLocalRunConfig(workDir, "LocalRunConfig.json");
+        JsonRunModel localRunConfig = WrapJson.readLocalRunConfig(localRunConfigFile);
 
-        File localLogConfigFile = new WrapJson(workDir).findLocalLogConfig("LocalLogConfig.json");
-        LocalLogConfig localLogConfig = new WrapJson(workDir).readLocalLogConfig(localLogConfigFile);
+        File localLogConfigFile = WrapJson.findLocalLogConfig(workDir, "LocalLogConfig.json");
+        JsonLogModel localLogConfig = WrapJson.readLocalLogConfig(localLogConfigFile);
 
-        File localStatusCacheFile = new WrapJson(workDir).findLocalStatusCache("LocalStatusCache.json");
-        LocalStatusCache localStatusCache = new WrapJson(workDir).readLocalStatusCache(localStatusCacheFile);
+        File localStatusCacheFile = WrapJson.findLocalStatusCache(workDir, "LocalStatusCache.json");
+        JsonCacheModel localStatusCache = WrapJson.readLocalStatusCache(localStatusCacheFile);
 
-        Log log = new Log(localLogConfig);
-        log.find();
+        LogModel logModel = new LogModel(localLogConfig);
+        Log.find(logModel);
 
         LocalDateTime startClock = LocalDateTime.now();
 
         try {
-            String googleResponse = new WrapHttpsConnect(localRunConfig.IPCHECK_HOST, localRunConfig.IPCHECK_RESOURCE).useSslSocket();
-            String ipAddress = new GoogleResultsParser(googleResponse).getIp();
+            String googleResponse = WrapHttpsConnect.useSslSocket(localRunConfig.IPCHECK_HOST, localRunConfig.IPCHECK_RESOURCE);
+            String ipAddress = GoogleResultsParser.getIp(googleResponse);
             if (ipAddress.equals(localStatusCache.IP_CACHE)) {
-                log.save("No change in IP " + ipAddress);
+                Log.save(logModel, "No change in IP " + ipAddress);
             } else {
-                log.save("The current IP " + ipAddress + " is different from the cached IP " + localStatusCache.IP_CACHE);
+                Log.save(logModel, "The current IP " + ipAddress + " is different from the cached IP " + localStatusCache.IP_CACHE);
                 ArrayList<String> messageLines = new ArrayList<>();
                 messageLines.add(ipAddress);
-                new WrapMail(localRunConfig, localRunConfig.DEVICE_NAME, messageLines).sendSecure();
+                EmailModel emailModel = new EmailModel(localRunConfig, localRunConfig.DEVICE_NAME, messageLines);
+                WrapEmail.sendSecure(emailModel);
             }
-            new WrapJson(workDir).updateLocalStatusCache(localStatusCacheFile, ipAddress);
+            WrapJson.updateLocalStatusCache(localStatusCacheFile, ipAddress);
         } catch (WrapHttpsConnectException whce) {
             whce.printStackTrace();
-            log.save("Failed to get results from Google");
+            Log.save(logModel, "Failed to get results from Google");
         } catch (GoogleResultsParserException grpe) {
             grpe.printStackTrace();
-            log.save("Failed to parse IP from Google results");
+            Log.save(logModel, "Failed to parse IP from Google results");
         } catch (Exception e) {
             e.printStackTrace();
-            log.save(e.getMessage());
+            Log.save(logModel, e.getMessage());
         }
         LocalDateTime stopClock = LocalDateTime.now();
         Duration duration = Duration.between(startClock, stopClock);

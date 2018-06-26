@@ -4,17 +4,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class GoogleResultsParser {
-    private String results;
-
-    public GoogleResultsParser(String results) throws GoogleResultsParserException {
-        this.results = results;
+    public static String getIp(String results) throws GoogleResultsParserException {
         if (results == null || results.trim().isEmpty()) {
             throw new GoogleResultsParserException("No HTML to parse.");
-        }
-    }
-
-    String getIp() throws GoogleResultsParserException {
-        String start = "<div id=\"ires\"><ol><div";
+        }        String start = "<div id=\"ires\"><ol><div";
         if (results.indexOf(start) < 0) {
             throw new GoogleResultsParserException("Unable to find \"" + start + "\" in HTML.");
         }

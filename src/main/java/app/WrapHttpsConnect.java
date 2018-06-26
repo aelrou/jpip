@@ -11,22 +11,16 @@ import java.security.SecureRandom;
 import java.security.cert.X509Certificate;
 
 public class WrapHttpsConnect {
-    private String host;
-    private String resource;
 
-    WrapHttpsConnect(String host, String resource) throws WrapHttpsConnectException {
-        this.host = host;
-        this.resource = resource;
+    public static String useSslSocket(String host, String resource) throws NoSuchAlgorithmException, KeyManagementException, IOException, WrapHttpsConnectException {
 
         if (host == null || host.trim().isEmpty()) {
             throw new WrapHttpsConnectException("Host cannot be empty. Example: www.website.com");
         }
         if (resource == null || resource.trim().isEmpty()) {
-            this.resource = "/";
+            return "/";
         }
-    }
 
-    String useSslSocket() throws NoSuchAlgorithmException, KeyManagementException, IOException, WrapHttpsConnectException {
         TrustManager[] trustAllCert = new TrustManager[]{
                 new X509TrustManager() {
                     public X509Certificate[] getAcceptedIssuers() {
@@ -63,7 +57,15 @@ public class WrapHttpsConnect {
         return response;
     }
 
-    String useUrlConnection() throws IOException, NoSuchAlgorithmException, KeyManagementException, URISyntaxException {
+    public static String useUrlConnection(String host, String resource) throws NoSuchAlgorithmException, KeyManagementException, IOException, URISyntaxException, WrapHttpsConnectException {
+
+        if (host == null || host.trim().isEmpty()) {
+            throw new WrapHttpsConnectException("Host cannot be empty. Example: www.website.com");
+        }
+        if (resource == null || resource.trim().isEmpty()) {
+            return "/";
+        }
+
         TrustManager[] trustAllCerts = new TrustManager[]{
                 new X509TrustManager() {
                     public X509Certificate[] getAcceptedIssuers() {
@@ -100,8 +102,7 @@ public class WrapHttpsConnect {
         InputStreamReader streamReader = new InputStreamReader(inputStream);
         BufferedReader bufferedReader = new BufferedReader(streamReader);
         String response = new String();
-        for (String line; (line = bufferedReader.readLine()) != null; response += line + System.getProperty("line.separator"))
-            ;
+        for (String line; (line = bufferedReader.readLine()) != null; response += line + System.getProperty("line.separator"));
         bufferedReader.close();
 
         System.out.println(url + " " + status);
