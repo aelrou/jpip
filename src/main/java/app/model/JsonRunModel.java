@@ -31,19 +31,6 @@ public class JsonRunModel {
             this.EMAIL_SENDER = "My Unique Device Name < sender@address.com >";
             this.EMAIL_RECIPIENT_LIST = new ArrayList<>(Arrays.asList("recipient-1@address.com", "recipient-2@address.com"));
             this.EMAIL_TIMEOUT = 30000;
-        } else {
-            try { DEVICE_NAME.trim(); } catch (Exception e) { System.out.println("DEVICE_NAME "+ e.getMessage()); }
-            try { IPCHECK_HOST.trim(); } catch (Exception e) { System.out.println("IPCHECK_HOST "+ e.getMessage()); }
-            try { IPCHECK_RESOURCE.trim(); } catch (Exception e) { System.out.println("IPCHECK_RESOURCE "+ e.getMessage()); }
-
-            try { EMAIL_SERVER.trim(); } catch (Exception e) { System.out.println("EMAIL_SERVER "+ e.getMessage()); }
-            try { EMAIL_PROTOCOL.trim(); } catch (Exception e) { System.out.println("EMAIL_PROTOCOL "+ e.getMessage()); }
-            try { if (EMAIL_PORT > 0); } catch (Exception e) { System.out.println("EMAIL_PORT "+ e.getMessage()); }
-            try { EMAIL_USERNAME.trim(); } catch (Exception e) { System.out.println("EMAIL_USERNAME "+ e.getMessage()); }
-            try { EMAIL_PASSWORD.trim(); } catch (Exception e) { System.out.println("EMAIL_PASSWORD "+ e.getMessage()); }
-            try { EMAIL_SENDER.trim(); } catch (Exception e) { System.out.println("EMAIL_SENDER "+ e.getMessage()); }
-            try { EMAIL_RECIPIENT_LIST.get(0).trim(); } catch (Exception e) { System.out.println("EMAIL_RECIPIENT_LIST "+ e.getMessage()); }
-            try { if (EMAIL_TIMEOUT > 0); } catch (Exception e) { System.out.println("EMAIL_TIMEOUT "+ e.getMessage()); }
         }
     }
 }
