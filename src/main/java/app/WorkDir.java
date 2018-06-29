@@ -4,7 +4,7 @@ import java.io.File;
 
 public class WorkDir {
 
-    private static boolean check(String[] args, String jarName) throws WorkDirException {
+    public static String getDir(String[] args, String jarName) throws WorkDirException {
 
         if (jarName == null || jarName.trim().isEmpty()) {
             throw new WorkDirException("Internal error. \"jarName\" is not set.");
@@ -16,12 +16,8 @@ public class WorkDir {
         if (args.length != 1) {
             throw new WorkDirException("Only 1 parameter allowed. Found " + args.length);
         }
-        return true;
-    }
 
-    public static String getDir(String[] args, String jarName) throws WorkDirException {
-        WorkDir.check(args, jarName);
-        WorkDir.getJar(args, jarName);
+        getJar(args, jarName);
         return args[0];
     }
 
