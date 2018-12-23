@@ -1,10 +1,10 @@
 # jpip
 Public IP address monitor and notify utility using Java on Windows
 
-* Builds in [Java 10](http://www.oracle.com/technetwork/java/javase/downloads/index.html)  
-  `JAVA_HOME - C:\Program Files\Java\jdk-10.0.1`  
-  `JRE_HOME - C:\Program Files\Java\jre-10.0.1`  
-  `PATH - C:\Program Files\Java\jre-10.0.1\bin`
+* Builds in [Java 11](http://www.oracle.com/technetwork/java/javase/downloads/index.html)  
+  `JAVA_HOME - C:\Program Files\Java\jdk-11.0.1`  
+  `JRE_HOME - C:\Program Files\Java\jdk-11.0.1` if _C:\Program Files\Java\jre1.8.0_191_ is wrong version  
+  `PATH - C:\Program Files\Java\jdk-11.0.1` if _C:\Program Files (x86)\Common Files\Oracle\Java\javapath_ is wrong version
 
 * Build JAR with dependencies using [Maven](https://maven.apache.org/)  
   `M2_HOME - C:\Program Files\Maven`  
@@ -18,7 +18,7 @@ Public IP address monitor and notify utility using Java on Windows
   `"EMAIL_USERNAME": "sender@address.com",`  
   `"EMAIL_PASSWORD": "password",`  
   `"EMAIL_SENDER": "My Unique Device Name < sender@address.com >",`  
-  `"EMAIL_RECIPIENT_LIST": [ "recipient-1@address.com", "recipient-2@address.com" ],`  
+  `"EMAIL_RECIPIENT_LIST": [ "recipient-1@address.com", "recipient-2@address.com" ],`
 
 * Configure IP check frequency using Windows Task Scheduler  
   `java -jar "C:\jpip\app.jar" "C:\jpip"`

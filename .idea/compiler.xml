@@ -10,7 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="jpip" target="10" />
+      <module name="jpip" target="11" />
     </bytecodeTargetLevel>
   </component>
 </project>
